@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
+             ControlTemplate="{StaticResource MainPageTemplate}"
+             mc:Ignorable="d"
+             x:Class="PukekoApp.Views.MainPage">
+    <ContentPage.Content>
+        <Grid VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" ColumnSpacing="0" RowSpacing="0" MinimumWidthRequest="780">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="60"/>
+                <ColumnDefinition Width="240"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <ScrollView BackgroundColor="{DynamicResource SecondaryColor}" Grid.Column="0" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                <Grid x:Name="Guilds" VerticalOptions="Start" HorizontalOptions="FillAndExpand" ColumnSpacing="4" Padding="8">
+                    <Frame CornerRadius="22" Grid.Row="0" BackgroundColor="{DynamicResource PrimaryColor}" HeightRequest="4"/>
+                    <Frame CornerRadius="22" Grid.Row="1" BackgroundColor="#dddddd" Opacity="0.6"/>
+                    <Frame CornerRadius="22" Grid.Row="2" BackgroundColor="#dddddd" Opacity="0.6"/>
+                    <Frame CornerRadius="22" Grid.Row="3" BackgroundColor="#dddddd" Opacity="0.6"/>
+                    <Frame CornerRadius="22" Grid.Row="4" BackgroundColor="#dddddd" Opacity="0.6"/>
+                    <Frame CornerRadius="22" Grid.Row="5" BackgroundColor="#dddddd" Opacity="0.6"/>
+                </Grid>
+            </ScrollView>
+            <Frame CornerRadius="0" BackgroundColor="{DynamicResource SecondaryColor}" Grid.Column="1" VerticalOptions="Start" HorizontalOptions="FillAndExpand" Padding="8">
+                <Label Text="Game Servers" HorizontalTextAlignment="Center" Font="Bold,24"/>
+            </Frame>
+            <ScrollView BackgroundColor="{DynamicResource PrimaryColor}" Grid.Column="1" Margin="0,48,0,0" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                <Grid x:Name="Gameservers" VerticalOptions="Start" HorizontalOptions="FillAndExpand" ColumnSpacing="4" Padding="4">
+                    <Frame CornerRadius="6" Grid.Row="0" BackgroundColor="{DynamicResource SecondaryColor}" Padding="4">
+                        <StackLayout>
+                            <Label Text="Gameserver name" Font="Bold,18" LineHeight="0.8"/>
+                            <Label Text="serveraddress:serverport" FontSize="10" TextColor="#7070F0"/>
+                            <Label Text="Tiername Gamename"/>
+                        </StackLayout>
+                    </Frame>
+                    <Frame CornerRadius="6" Grid.Row="1" BackgroundColor="{DynamicResource SecondaryColor}" Padding="4">
+                        <StackLayout>
+                            <Label Text="Gameserver name" Font="Bold,18" LineHeight="0.8"/>
+                            <Label Text="serveraddress:serverport" FontSize="10" TextColor="#7070F0"/>
+                            <Label Text="Tiername Gamename"/>
+                        </StackLayout>
+                    </Frame>
+                    <Frame CornerRadius="6" Grid.Row="2" BackgroundColor="{DynamicResource SecondaryColor}" Padding="4">
+                        <StackLayout>
+                            <Label Text="Gameserver name" Font="Bold,18" LineHeight="0.8"/>
+                            <Label Text="serveraddress:serverport" FontSize="10" TextColor="#7070F0"/>
+                            <Label Text="Tiername Gamename"/>
+                        </StackLayout>
+                    </Frame>
+                    <Frame CornerRadius="6" Grid.Row="3" BackgroundColor="{DynamicResource SecondaryColor}" Padding="4">
+                        <StackLayout>
+                            <Label Text="Gameserver name" Font="Bold,18" LineHeight="0.8"/>
+                            <Label Text="serveraddress:serverport" FontSize="10" TextColor="#7070F0"/>
+                            <Label Text="Tiername Gamename"/>
+                        </StackLayout>
+                    </Frame>
+                    <Frame CornerRadius="6" Grid.Row="4" BackgroundColor="{DynamicResource SecondaryColor}" Padding="4">
+                        <StackLayout>
+                            <Label Text="Gameserver name" Font="Bold,18" LineHeight="0.8"/>
+                            <Label Text="serveraddress:serverport" FontSize="10" TextColor="#7070F0"/>
+                            <Label Text="Tiername Gamename"/>
+                        </StackLayout>
+                    </Frame>
+                    <Frame CornerRadius="6" Grid.Row="5" BackgroundColor="{DynamicResource SecondaryColor}" Padding="4">
+                        <StackLayout>
+                            <Label Text="Gameserver name" Font="Bold,18" LineHeight="0.8"/>
+                            <Label Text="serveraddress:serverport" FontSize="10" TextColor="#7070F0"/>
+                            <Label Text="Tiername Gamename"/>
+                        </StackLayout>
+                    </Frame>
+                </Grid>
+            </ScrollView>
+            <ScrollView Grid.Column="2">
+                <StackLayout>
+                    <Frame CornerRadius="24" Margin="4" BackgroundColor="{DynamicResource TertiaryColor}" HorizontalOptions="FillAndExpand" HeightRequest="300">
+                        <Grid>
+                            <Label Grid.Row="2" Text="ServerName" Font="Bold,24"/>
+                            <Label Grid.Row="3" Text="Tiered GameName Plan"/>
+                            <Button Grid.Row="5" Text="Stop Server"/>
+                        </Grid>
+                    </Frame>
+                    <Frame CornerRadius="6" Margin="4" Padding="0" IsClippedToBounds="True" BackgroundColor="#252525" HorizontalOptions="FillAndExpand" HeightRequest="300">
+                        <Grid RowSpacing="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="48"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="32"/>
+                            </Grid.RowDefinitions>
+                            <BoxView Grid.Row="0" BackgroundColor="#333" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>
+                            <Label Grid.Row="0" Text="Terminal" Font="Bold,18" Margin="10,0,0,0" VerticalTextAlignment="Center" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>
+                            <StackLayout Grid.Row="1" x:Name="Terminal" BackgroundColor="#111" Padding="8">
+                                <Label Text="Minecraft Console"/>
+                                <Label Text="Connecting to terminal..."/>
+                            </StackLayout>
+                            <Grid Grid.Row="2" ColumnSpacing="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="32"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="96"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0" Text=">" FontSize="16" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+                                <Entry Grid.Column="1" Placeholder="p/help"/>
+                                <Button Grid.Column="2" Text="Send"/>
+                            </Grid>
+                        </Grid>
+                    </Frame>
+                </StackLayout>
+            </ScrollView>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
