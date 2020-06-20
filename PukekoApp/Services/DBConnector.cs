@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Dynamic;
+using System.Threading.Tasks;
 using System.Net;
 using System.IO;
 using System.Text;
@@ -47,44 +48,44 @@ namespace PukekoApp.Services
             }
         }
 
-        public T Get<T>(Method method, string path, Object postdata)
+        public async Task<T> ApiReq<T>(Method method, string path, Object postdata = null)
         {
-            var result = WebGet(method, String.Format(APIURL, path), postdata);
+            var result = await WebReq(method, String.Format(APIURL, path), postdata);
 
             return JsonConvert.DeserializeObject<T>(result);
         }
 
-        public string WebGet(Method method, string path, Object postdata)
+        public async Task<string> WebReq(Method method, string path, Object postdata = null)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(path);
             request.Method = methodToString(method);
             request.UserAgent = "request";
 
-            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-            if (response.StatusCode == HttpStatusCode.OK)
+            using (HttpWebResponse response = (HttpWebResponse)await request.GetResponseAsync())
             {
-                Stream receiveStream = response.GetResponseStream();
-                StreamReader readStream = null;
-
-                if (response.CharacterSet == null)
+                if (response.StatusCode == HttpStatusCode.OK)
                 {
-                    readStream = new StreamReader(receiveStream);
+                    Stream receiveStream = response.GetResponseStream();
+                    StreamReader readStream = null;
+
+                    if (response.CharacterSet == null)
+                    {
+                        readStream = new StreamReader(receiveStream);
+                    }
+                    else
+                    {
+                        readStream = new StreamReader(receiveStream, Encoding.GetEncoding(response.CharacterSet));
+                    }
+
+                    string data = readStream.ReadToEnd();
+
+                    response.Close();
+                    readStream.Close();
+
+                    return data;
                 }
-                else
-                {
-                    readStream = new StreamReader(receiveStream, Encoding.GetEncoding(response.CharacterSet));
-                }
-
-                string data = readStream.ReadToEnd();
-
-                response.Close();
-                readStream.Close();
-
-                return data;
+                return null;
             }
-            return "";
         }
-
-
     }
 }
