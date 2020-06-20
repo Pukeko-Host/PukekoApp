@@ -4,7 +4,7 @@ using System.Text;
 
 namespace PukekoApp.Models
 {
-    class User
+    public class User
     {
         public bool logged_in;
         public int Id;

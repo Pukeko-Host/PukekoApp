@@ -4,7 +4,7 @@ using System.Text;
 
 namespace PukekoApp.Models
 {
-    class Guild
+    public class Guild
     {
         public int Id;
         public string Name;

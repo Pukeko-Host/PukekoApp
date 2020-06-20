@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace PukekoApp.ViewModels
+namespace PukekoApp.Models
 {
-    public class Guilds
+    class SysMsg
     {
+        public string desc;
     }
 }

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace PukekoApp.Models
 {
-    class GSMS
+    public class GSMS
     {
         public int Id;
         public string Perks;

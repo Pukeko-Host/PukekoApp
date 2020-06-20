@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:magic="clr-namespace:MagicGradients;assembly=MagicGradients"
+             mc:Ignorable="d"
+             x:Class="PukekoApp.Views.Login">
+    <ContentPage.Content>
+        <Grid VerticalOptions="FillAndExpand">
+            <magic:GradientView Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" VerticalOptions="FillAndExpand">
+                <magic:GradientView.GradientSource>
+                    <magic:LinearGradient Angle="270">
+                        <magic:GradientStop Color="#30475D" Offset="0" />
+                        <magic:GradientStop Color="#134FB0" Offset="1" />
+                    </magic:LinearGradient>
+                </magic:GradientView.GradientSource>
+            </magic:GradientView>
+            <StackLayout Grid.Column="0" Grid.Row="0" Orientation="Vertical" HorizontalOptions="Center" VerticalOptions="Center">
+                <Label Grid.Row="0" Grid.Column="0" Style="{StaticResource titleStyle}" HorizontalOptions="Center" VerticalOptions="Center">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="Pukeko"></Span>
+                            <Span Text="Host" Style="{StaticResource dim}"></Span>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+                <Label Text="Manage your PukekoHost servers instantly from your device." HorizontalTextAlignment="Center" FontSize="Subtitle" Padding="20"></Label>
+            </StackLayout>
+            <StackLayout Grid.Column="0" Grid.Row="1" Orientation="Vertical" HorizontalOptions="Center" VerticalOptions="Center">
+                <Button Text="Login with Discord" Clicked="DiscordLogin_Clicked" BackgroundColor="#7289DA" Padding="10"></Button>
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

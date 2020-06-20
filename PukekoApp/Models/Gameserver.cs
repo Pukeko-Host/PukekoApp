@@ -4,7 +4,7 @@ using System.Text;
 
 namespace PukekoApp.Models
 {
-    class Gameserver
+    public class Gameserver
     {
         public enum GameserverState { Active, Archived }
 

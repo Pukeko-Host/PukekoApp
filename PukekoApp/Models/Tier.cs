@@ -4,7 +4,7 @@ using System.Text;
 
 namespace PukekoApp.Models
 {
-    class Tier
+    public class Tier
     {
         public int GameId;
         public int TierNumber;

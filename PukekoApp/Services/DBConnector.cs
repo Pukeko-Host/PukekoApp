@@ -6,10 +6,15 @@ using System.Net;
 using System.IO;
 using System.Text;
 using Newtonsoft.Json;
+using Xamarin.Forms;
+using System.Web;
+using System.Net.NetworkInformation;
+
+using PukekoApp.Models;
 
 namespace PukekoApp.Services
 {
-    class DBConnector
+    public class DBConnector
     {
         private const string APIURL = "https://pukeko.yiays.com/api/{0}";
         private string _userToken;
@@ -48,43 +53,62 @@ namespace PukekoApp.Services
             }
         }
 
-        public async Task<T> ApiReq<T>(Method method, string path, Object postdata = null)
+        public class WebRes
         {
-            var result = await WebReq(method, String.Format(APIURL, path), postdata);
-
-            return JsonConvert.DeserializeObject<T>(result);
+            public string data;
+            public int status;
+        }
+        public class ApiRes<T> : WebRes
+        {
+            public T obj;
         }
 
-        public async Task<string> WebReq(Method method, string path, Object postdata = null)
+        public async Task<ApiRes<T>> ApiReq<T>(Method method, string path, Object postdata = null)
+        {
+            ApiRes<T> apires = (ApiRes<T>)await WebReq(method, String.Format(APIURL, path), postdata);
+
+            apires.obj = JsonConvert.DeserializeObject<T>(apires.data);
+
+            return apires;
+        }
+
+        public async Task<WebRes> WebReq(Method method, string path, Object postdata = null)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(path);
             request.Method = methodToString(method);
             request.UserAgent = "request";
+            switch (method)
+            {
+                case Method.POST:
+                    var postData = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(postdata));
+                    request.ContentLength = postData.Length;
+                    request.ContentType = "application/json";
+                    Stream postdatastream = request.GetRequestStream();
+                    postdatastream.Write(postData, 0, postData.Length);
+                    postdatastream.Close();
+                    break;
+            }
 
             using (HttpWebResponse response = (HttpWebResponse)await request.GetResponseAsync())
             {
-                if (response.StatusCode == HttpStatusCode.OK)
+                Stream receiveStream = response.GetResponseStream();
+                StreamReader readStream = null;
+
+                if (response.CharacterSet == null)
                 {
-                    Stream receiveStream = response.GetResponseStream();
-                    StreamReader readStream = null;
-
-                    if (response.CharacterSet == null)
-                    {
-                        readStream = new StreamReader(receiveStream);
-                    }
-                    else
-                    {
-                        readStream = new StreamReader(receiveStream, Encoding.GetEncoding(response.CharacterSet));
-                    }
-
-                    string data = readStream.ReadToEnd();
-
-                    response.Close();
-                    readStream.Close();
-
-                    return data;
+                    readStream = new StreamReader(receiveStream);
                 }
-                return null;
+                else
+                {
+                    readStream = new StreamReader(receiveStream, Encoding.GetEncoding(response.CharacterSet));
+                }
+
+                string data = readStream.ReadToEnd();
+
+                response.Close();
+                readStream.Close();
+
+                return new WebRes() { data=data, status=(int)response.StatusCode };
             }
         }
     }
