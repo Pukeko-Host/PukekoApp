@@ -5,7 +5,7 @@
   xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest"
   xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
   IgnorableNamespaces="uap mp">
-
+  
   <Identity
     Name="2fd4e494-03be-476f-bfeb-aa2ebe2f44cf"
     Publisher="CN=35a0d267-3183-4fe9-aac7-d6a68292f3fc"
@@ -14,7 +14,7 @@
   <mp:PhoneIdentity PhoneProductId="ec0cc741-fd3e-485c-81be-68815c480690" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
-    <DisplayName>PukekoApp.UWP</DisplayName>
+    <DisplayName>PukekoApp</DisplayName>
     <PublisherDisplayName>35a0d267-3183-4fe9-aac7-d6a68292f3fc</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
@@ -32,12 +32,11 @@
       Executable="$targetnametoken$.exe"
       EntryPoint="PukekoApp.UWP.App">
       <uap:VisualElements
-        DisplayName="PukekoApp.UWP"
+        DisplayName="PukekoHost"
         Square150x150Logo="Assets\Square150x150Logo.png"
         Square44x44Logo="Assets\Square44x44Logo.png"
-        Description="PukekoApp.UWP"
-        BackgroundColor="transparent">
-        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" Square310x310Logo="Assets\LargeTile.png" Square71x71Logo="Assets\SmallTile.png">
+        Description="Manage your PukekoHost servers in a snappy native app." BackgroundColor="#134FB0">
+        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" Square310x310Logo="Assets\LargeTile.png" Square71x71Logo="Assets\SmallTile.png" ShortName="PukekoHost">
           <uap:ShowNameOnTiles>
             <uap:ShowOn Tile="square150x150Logo" />
             <uap:ShowOn Tile="wide310x150Logo" />
@@ -45,7 +44,11 @@
           </uap:ShowNameOnTiles>
         </uap:DefaultTile>
         <uap:SplashScreen Image="Assets\SplashScreen.png" />
+        <uap:LockScreen BadgeLogo="Assets\BadgeLogo.png" Notification="badge"/>
       </uap:VisualElements>
+      <uap:ApplicationContentUriRules>
+        <uap:Rule Type="include" Match="https://pukeko.yiays.com/app/*" WindowsRuntimeAccess="all"/>
+      </uap:ApplicationContentUriRules>
     </Application>
   </Applications>
 

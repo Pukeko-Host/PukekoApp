@@ -58,6 +58,7 @@ namespace PukekoApp.UWP
 
                 Xamarin.Forms.Forms.Init(e);
                 ImageCircleRenderer.Init();
+                global::Xamarin.Auth.Presenters.UWP.AuthenticationConfiguration.Init();
 
                 if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
                 {
