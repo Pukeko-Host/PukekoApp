@@ -41,5 +41,15 @@ namespace PukekoApp
         protected override void OnResume()
         {
         }
+
+        private async void Main_Clicked(object sender, EventArgs e)
+        {
+            await (Current.MainPage as NavigationPage).PushAsync(new MainPage());
+        }
+
+        private async void Account_Clicked(object sender, EventArgs e)
+        {
+            await (Current.MainPage as NavigationPage).PushAsync(new Account());
+        }
     }
 }
