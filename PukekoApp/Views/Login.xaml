@@ -28,7 +28,7 @@
                 <Label Text="Manage your PukekoHost servers instantly from your device." HorizontalTextAlignment="Center" FontSize="Subtitle" Padding="20"></Label>
             </StackLayout>
             <StackLayout Grid.Column="0" Grid.Row="1" Orientation="Vertical" HorizontalOptions="Center" VerticalOptions="Center">
-                <Button Text="Login with Discord" Clicked="DiscordLogin_Clicked" BackgroundColor="#7289DA" Padding="10"></Button>
+                <Button IsEnabled="{Binding canLogin}" Text="Login with Discord" Clicked="DiscordLogin_Clicked" BackgroundColor="#7289DA" Padding="10"></Button>
             </StackLayout>
         </Grid>
     </ContentPage.Content>

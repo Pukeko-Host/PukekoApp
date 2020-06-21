@@ -6,11 +6,11 @@ namespace PukekoApp.Models
 {
     public class Guild
     {
-        public int Id;
+        public ulong Id;
         public string Name;
         public string Icon;
-        public int Pos;
-        public int? FolderParent;
+        public int? Pos;
+        public ulong? FolderParent;
         public bool Valid;
         public Dictionary<Gameserver.GameserverState, Gameserver> Gameservers;
     }

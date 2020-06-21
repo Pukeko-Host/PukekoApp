@@ -17,17 +17,22 @@ namespace PukekoApp.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class Login : ContentPage
     {
-        private App parent;
         OAuth2Authenticator auth;
+        OAuthLoginPresenter presenter;
 
-        public Login(App parentapp)
+        public bool canLogin = true;
+
+        public Login()
         {
-            parent = parentapp;
+            NavigationPage.SetHasNavigationBar(this, false);
+
             InitializeComponent();
         }
 
         private void DiscordLogin_Clicked(object sender, EventArgs e)
         {
+            canLogin = false;
+
             auth = new OAuth2Authenticator(
                 clientId: "700549643045568522",
                 scope: "identify email guilds",
@@ -35,32 +40,44 @@ namespace PukekoApp.Views
                 redirectUrl: new Uri("https://pukeko.yiays.com/app/account/callback/"),
                 isUsingNativeUI: true
             );
-            auth.Completed += async (authSender, authEventArgs) =>
+            auth.Completed += auth_Completed;
+            auth.Error += auth_Failed;
+
+            presenter = new OAuthLoginPresenter();
+            presenter.Login(auth);
+        }
+        private async void auth_Completed(object sender, AuthenticatorCompletedEventArgs eventArgs)
+        {
+            if (eventArgs.IsAuthenticated)
             {
-                if (authEventArgs.IsAuthenticated)
+                var apiauth = await App.DBConnector.ApiReq<SysMsg>(DBConnector.Method.POST, "account/app_login/", new Dictionary<string, object>() { { "access_token", eventArgs.Account.Properties["access_token"] } });
+                if (apiauth.status == 200)
                 {
-                    var apiauth = await parent.DBConnector.ApiReq<SysMsg>(DBConnector.Method.POST, "account/app_login/", new Dictionary<string, string>() { { "access_token", authEventArgs.Account.Properties["access_token"] } });
-                    if (apiauth.status == 200)
+                    var apiaccount = await App.DBConnector.ApiReq<User>(DBConnector.Method.GET, "account/");
+                    if (apiaccount.obj.logged_in)
                     {
-                        var apiaccount = await parent.DBConnector.ApiReq<User>(DBConnector.Method.GET, "account/");
-                        parent.User = apiaccount.obj;
-                        parent.MainPage = new MainPage(parent);
+                        App.User = apiaccount.obj;
+                        await (Application.Current.MainPage as NavigationPage).PushAsync(new MainPage());
                     }
                     else
                     {
-                        await Application.Current.MainPage.DisplayAlert(title: "Login failed!", message: "Failed to login to the PukekoHost API", cancel: "Okay");
+                        await Application.Current.MainPage.DisplayAlert(title: "Login failed!", message: $"An unknown error occured.", cancel: "Okay");
                     }
-
                 }
-                // Otherwise, the user is taken back to the login screen
-            };
-            auth.Error += async (authSender, authEventArgs) =>
-            {
-                await Application.Current.MainPage.DisplayAlert(title: "Login failed!", message: authEventArgs.Message, cancel: "Okay");
-            };
+                else
+                {
+                    await Application.Current.MainPage.DisplayAlert(title: "Login failed!", message: $"Error {apiauth.status}: {apiauth.obj.desc}", cancel: "Okay");
+                    canLogin = true;
+                }
 
-            OAuthLoginPresenter presenter = new OAuthLoginPresenter();
-            presenter.Login(auth);
+            }
+            // Otherwise, the user is taken back to the login screen
+            canLogin = true;
+        }
+        private async void auth_Failed(object sender, AuthenticatorErrorEventArgs eventArgs)
+        {
+            await Application.Current.MainPage.DisplayAlert(title: "Login failed!", message: eventArgs.Message, cancel: "Okay");
+            canLogin = true;
         }
     }
 }

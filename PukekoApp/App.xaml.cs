@@ -10,18 +10,28 @@ namespace PukekoApp
     public partial class App : Application
     {
         public static int StatusBarHeight = 0;
-        public DBConnector DBConnector = new DBConnector();
-        public User User;
+        public static DBConnector DBConnector;
+        public static User User;
 
         public App()
         {
             InitializeComponent();
-
-            MainPage = new Login(this);
+            DBConnector = new DBConnector();
+            User = new User();
         }
 
-        protected override void OnStart()
+        protected async override void OnStart()
         {
+            var req = await DBConnector.ApiReq<User>(DBConnector.Method.GET, "account/");
+            if (req.status == 200)
+                User = req.obj;
+            else
+                Console.WriteLine(req.data);
+
+            if (User.logged_in)
+                MainPage = new NavigationPage(new MainPage());
+            else
+                MainPage = new NavigationPage(new Login());
         }
 
         protected override void OnSleep()

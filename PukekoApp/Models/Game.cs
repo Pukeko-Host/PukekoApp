@@ -14,5 +14,7 @@ namespace PukekoApp.Models
         public string Background;
         public string Foreground;
         public string Icon;
+        public List<Tier> Tiers;
+        public List<GSMS> GSMSs;
     }
 }

@@ -14,13 +14,12 @@ namespace PukekoApp.Views
     public partial class MainPage : ContentPage
     {
         public bool GameserverVis = true;
-        private App parent;
 
-        public MainPage(App parentapp)
+        public MainPage()
         {
-            parent = parentapp;
-
             NavigationPage.SetHasNavigationBar(this, false);
+
+            NavigationPage.SetHasBackButton(this, false);
 
             InitializeComponent();
 
