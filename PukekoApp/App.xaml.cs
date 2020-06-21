@@ -15,9 +15,10 @@ namespace PukekoApp
 
         public App()
         {
-            InitializeComponent();
             DBConnector = new DBConnector();
             User = new User();
+
+            InitializeComponent();
         }
 
         protected async override void OnStart()

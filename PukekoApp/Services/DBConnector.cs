@@ -17,11 +17,13 @@ namespace PukekoApp.Services
     public class DBConnector
     {
         private const string APIURL = "https://pukeko.yiays.com/api/{0}";
-        private CookieContainer cookieContainer = new CookieContainer();
+        private CookieContainer cookieContainer;
 
-        public DBConnector() {
+        public DBConnector()
+        {
+            cookieContainer = new CookieContainer();
             /*if(App.Current.Properties.ContainsKey("cookieContainer"))
-                cookieContainer = (CookieContainer)App.Current.Properties["cookieContainer"];*/
+            cookieContainer = (CookieContainer)App.Current.Properties["cookieContainer"];*/
         }
 
         public enum Method
