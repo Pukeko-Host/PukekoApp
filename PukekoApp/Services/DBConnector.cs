@@ -11,6 +11,7 @@ using Xamarin.Forms;
 
 using PukekoApp.Models;
 using System.Web;
+using System.Threading;
 
 namespace PukekoApp.Services
 {
@@ -22,8 +23,17 @@ namespace PukekoApp.Services
         public DBConnector()
         {
             cookieContainer = new CookieContainer();
-            /*if(App.Current.Properties.ContainsKey("cookieContainer"))
-            cookieContainer = (CookieContainer)App.Current.Properties["cookieContainer"];*/
+            if (App.Current.Properties.ContainsKey("cookieContainer"))
+            {
+                cookieContainer = new CookieContainer();
+                cookieContainer.SetCookies(new Uri(APIURL), App.Current.Properties["cookieContainer"].ToString());
+            }
+        }
+
+        public void Reset()
+        {
+            cookieContainer = new CookieContainer();
+            App.Current.Properties["cookieContainer"] = "";
         }
 
         public enum Method
@@ -110,8 +120,8 @@ namespace PukekoApp.Services
                     string data = readStream.ReadToEnd();
 
                     cookieContainer.Add(response.Cookies);
-                    //App.Current.Properties["cookieContainer"] = cookieContainer;
-                    //await App.Current.SavePropertiesAsync();
+                    App.Current.Properties["cookieContainer"] = cookieContainer.GetCookies(new Uri(APIURL)).ToString();
+                    await App.Current.SavePropertiesAsync();
 
                     response.Close();
                     readStream.Close();

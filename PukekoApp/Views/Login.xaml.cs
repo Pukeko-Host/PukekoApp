@@ -61,7 +61,7 @@ namespace PukekoApp.Views
                     }
                     else
                     {
-                        await Application.Current.MainPage.DisplayAlert(title: "Login failed!", message: $"An unknown error occured.", cancel: "Okay");
+                        await Application.Current.MainPage.DisplayAlert(title: "Login failed!", message: "An unknown error occured.", cancel: "Okay");
                     }
                 }
                 else

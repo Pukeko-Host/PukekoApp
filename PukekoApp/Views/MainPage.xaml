@@ -21,15 +21,17 @@
                             <TapGestureRecognizer Tapped="Trigger_PushNav"/>
                         </Frame.GestureRecognizers>
                     </Frame>
-                    <Frame CornerRadius="22" Grid.Row="1" BackgroundColor="#dddddd" Opacity="0.6"/>
-                    <Frame CornerRadius="22" Grid.Row="2" BackgroundColor="#dddddd" Opacity="0.6"/>
-                    <Frame CornerRadius="22" Grid.Row="3" BackgroundColor="#dddddd" Opacity="0.6"/>
-                    <Frame CornerRadius="22" Grid.Row="4" BackgroundColor="#dddddd" Opacity="0.6"/>
-                    <Frame CornerRadius="22" Grid.Row="5" BackgroundColor="#dddddd" Opacity="0.6"/>
+                    <ListView ItemsSource="{Binding Guilds}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <controls:CircleImage Source="{Binding Icon}" Grid.Row="{Binding Pos}" WidthRequest="44" HeightRequest="44"/>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
                 </Grid>
             </ScrollView>
             <Frame CornerRadius="0" BackgroundColor="{DynamicResource SecondaryColor}" IsVisible="{Binding GameserverVis}" Grid.Column="1" VerticalOptions="Start" HorizontalOptions="FillAndExpand" Padding="8">
-                <Label Text="Game Servers" HorizontalTextAlignment="Center" Font="Bold,24"/>
+                <Label Text="{Binding Status}" HorizontalTextAlignment="Center" Font="Bold,24"/>
             </Frame>
             <ScrollView BackgroundColor="{DynamicResource PrimaryColor}" IsVisible="{Binding GameserverVis}" Grid.Column="1" Margin="0,48,0,0" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
                 <Grid x:Name="Gameservers" VerticalOptions="Start" HorizontalOptions="FillAndExpand" ColumnSpacing="4" Padding="4">
