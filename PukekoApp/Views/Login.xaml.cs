@@ -50,10 +50,10 @@ namespace PukekoApp.Views
         {
             if (eventArgs.IsAuthenticated)
             {
-                var apiauth = await App.DBConnector.ApiReq<SysMsg>(DBConnector.Method.POST, "account/app_login/", new Dictionary<string, object>() { { "access_token", eventArgs.Account.Properties["access_token"] } });
+                var apiauth = await App.APIConnector.ApiReq<SysMsg>(APIConnector.Method.POST, "account/app_login/", new Dictionary<string, object>() { { "access_token", eventArgs.Account.Properties["access_token"] } });
                 if (apiauth.status == 200)
                 {
-                    var apiaccount = await App.DBConnector.ApiReq<User>(DBConnector.Method.GET, "account/");
+                    var apiaccount = await App.APIConnector.ApiReq<User>(APIConnector.Method.GET, "account/");
                     if (apiaccount.obj.logged_in)
                     {
                         App.User = apiaccount.obj;

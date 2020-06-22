@@ -15,7 +15,7 @@ namespace PukekoApp.ViewModels
 
         public async Task Get()
         {
-            var result = await App.DBConnector.ApiReq<List<Guild>>(Services.DBConnector.Method.GET, "account/guilds/");
+            var result = await App.APIConnector.ApiReq<List<Guild>>(Services.APIConnector.Method.GET, "account/guilds/");
             if(result.status == 200)
             {
                 App.User.Guilds = result.obj;

@@ -15,12 +15,12 @@ using System.Threading;
 
 namespace PukekoApp.Services
 {
-    public class DBConnector
+    public class APIConnector
     {
         private const string APIURL = "https://pukeko.yiays.com/api/{0}";
         private CookieContainer cookieContainer;
 
-        public DBConnector()
+        public APIConnector()
         {
             cookieContainer = new CookieContainer();
             if (App.Current.Properties.ContainsKey("cookieContainer"))

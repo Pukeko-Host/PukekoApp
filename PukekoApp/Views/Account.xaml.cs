@@ -25,10 +25,10 @@ namespace PukekoApp.Views
 
         private async void Logout_Clicked(object sender, EventArgs e)
         {
-            var result = await App.DBConnector.ApiReq<SysMsg>(Services.DBConnector.Method.GET, "acccount/logout/");
+            var result = await App.APIConnector.ApiReq<SysMsg>(Services.APIConnector.Method.GET, "acccount/logout/");
             if(result.status == 200)
             {
-                App.DBConnector.Reset();
+                App.APIConnector.Reset();
                 await (App.Current.MainPage as NavigationPage).PushAsync(new Login());
             }
             else
