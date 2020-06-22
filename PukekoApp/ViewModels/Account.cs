@@ -15,5 +15,9 @@ namespace PukekoApp.ViewModels
         {
             get { return App.User.Email; }
         }
+        public string ProfilePicture
+        {
+            get { return App.User.Avatar.Replace("?size=256", ""); }
+        }
     }
 }

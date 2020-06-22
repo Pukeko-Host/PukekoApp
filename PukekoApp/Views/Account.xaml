@@ -3,11 +3,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
+             ControlTemplate="{StaticResource MainPageTemplate}"
              mc:Ignorable="d"
              x:Class="PukekoApp.Views.Account">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="{Binding UserStatus}" VerticalOptions="EndAndExpand" HorizontalOptions="Center"/>
+            <controls:CircleImage Source="{Binding ProfilePicture,StringFormat='{0}?size=128'}" WidthRequest="100" HeightRequest="100" VerticalOptions="EndAndExpand"/>
+            <Label Text="{Binding UserStatus}" HorizontalOptions="Center"/>
             <Label Text="{Binding Email}" VerticalOptions="StartAndExpand" HorizontalOptions="Center"/>
             <Button Text="Logout" Padding="10" Clicked="Logout_Clicked"></Button>
         </StackLayout>
